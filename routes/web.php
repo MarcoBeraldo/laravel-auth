@@ -14,5 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('guest.home');
+});
+
+Auth::routes(['register' => false]);
+
+
+// rotte protette dall'amministrazione
+Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin')->group(function(){
+
+    // home amministratore
+    Route::get('/', 'HomeController@index')->name('home');
+
+    // resource POST
+    // Route::resource('posts', 'PostController');
 });
