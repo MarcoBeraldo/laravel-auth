@@ -27,7 +27,7 @@
                         <td>{{ $post->updated_at }}</td>
                         <td class="d-flex">
                             <a class="btn btn-sm btn-primary mx-2" href="{{ route('admin.posts.show', $post) }}">Vedi</a>
-                            <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
+                            <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" class="delete-form">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger" type="submit">
