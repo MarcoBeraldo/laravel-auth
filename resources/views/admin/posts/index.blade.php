@@ -3,8 +3,12 @@
 @section('content')
     <div class="container">
 
-        <header>
+        <header class="d-flex justify-content-between align-items-center">
             <h1>Lista Post</h1>
+            <a class="btn btn-success" href="{{ route('admin.posts.create') }}">
+                <i class="fa-solid fa-plus mr-2"></i>
+                Crea Post
+            </a>
         </header>
         <table class="table table-striped table-dark">
             <thead>
