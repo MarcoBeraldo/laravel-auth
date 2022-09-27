@@ -16,6 +16,7 @@
                     <th scope="col">#</th>
                     <td scope="col">Titolo</td>
                     <td scope="col">Slug</td>
+                    <td scope="col">Stato</td>
                     <td scope="col">Creato il</td>
                     <td scope="col">Modificato il</td>
                     <td>Azioni</td>
@@ -27,6 +28,7 @@
                         <th scope="row">{{ $post->id }}</th>
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->slug }}</td>
+                        <td>{{ $post->is_published ? 'Pubblicato' : 'Non Pubblicato' }}</td>
                         <td>{{ $post->created_at }}</td>
                         <td>{{ $post->updated_at }}</td>
                         <td class="d-flex">
