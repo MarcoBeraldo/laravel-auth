@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+
         <header>
             <h1>Lista Post</h1>
         </header>
@@ -24,8 +25,15 @@
                         <td>{{ $post->slug }}</td>
                         <td>{{ $post->created_at }}</td>
                         <td>{{ $post->updated_at }}</td>
-                        <td>
+                        <td class="d-flex">
                             <a class="btn btn-sm btn-primary mx-2" href="{{ route('admin.posts.show', $post) }}">Vedi</a>
+                            <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger" type="submit">
+                                    <i class="fa-solid fa-trash mr-2"></i> Elimina
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @empty

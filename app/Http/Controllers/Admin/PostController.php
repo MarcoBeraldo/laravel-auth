@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('updated_at', 'DESC')->orderBy('created_at', 'DESC')->get();
+      $posts = Post::orderBy('updated_at', 'DESC')->orderBy('created_at', 'DESC')->get();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -77,11 +77,15 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        
+        return redirect()->route('admin.posts.index')
+        ->with('message', 'Il post è stato eliminato con successo')
+        ->with('type', 'success');
     }
 }
