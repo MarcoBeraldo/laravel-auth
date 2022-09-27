@@ -1,8 +1,21 @@
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
+
+
 @if ($post->exists)
-    <form action="{{ route('admin.posts.update', $post) }}" method="POST">
+    <form action="{{ route('admin.posts.update', $post) }}" method="POST" novalidate>
         @method('PUT')
     @else
-        <form action="{{ route('admin.posts.store') }}" method="POST">
+        <form action="{{ route('admin.posts.store') }}" method="POST" novalidate>
 @endif
 
 
@@ -11,23 +24,37 @@
     <div class="col-12">
         <div class="form-group">
             <label for="title">Titolo</label>
-            <input type="text" class="form-control" id="title" name="title" required minlength="5"
-                maxlength="50" value="{{ old('title', $post->title) }}">
-
+            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
+                required minlength="5" maxlength="50" value="{{ old('title', $post->title) }}">
+            @error('title')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
     </div>
     <div class="col-12">
         <div class="form-group">
             <label for="content">Contenuto</label>
-            <textarea class="form-control" id="content" name="content" required rows="8">{{ old('content', $post->content) }}</textarea>
-
+            <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" required
+                rows="8">{{ old('content', $post->content) }}</textarea>
+            @error('content')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
     </div>
     <div class="col-11">
         <div class="form-group">
-            <label for="image">Titolo</label>
-            <input type="url" class="form-control" id="image-field" name="image"
-                value="{{ old('image', $post->image) }}">
+            <label for="image">Immagine</label>
+            <input type="url" class="form-control @error('image') is-invalid @enderror" id="image-field"
+                name="image" value="{{ old('image', $post->image) }}">
+            @error('image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
     </div>
     <div class="col-1">
