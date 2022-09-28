@@ -1,6 +1,6 @@
 <?php
 
-use App\Model\Category;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -13,6 +13,9 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $categories = config('categories');
+        // print_r($categories);
+        // exit();
+        
 
         foreach ($categories as $category){
             $new_category = new Category();

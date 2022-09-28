@@ -21,7 +21,7 @@
 
 @csrf
 <div class="row">
-    <div class="col-12">
+    <div class="col-8">
         <div class="form-group">
             <label for="title">Titolo</label>
             <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
@@ -33,6 +33,23 @@
             @enderror
         </div>
     </div>
+    <div class="form-group col-4">
+        <label for="category_id">Categoria</label>
+        <select class="form-control @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
+            <option value="">Nessuna categoria</option>
+            @foreach ($categories as $category)
+                <option @if (old('category_id', $post->category_id) == $category->id) selected @endif value="{{ $category->id }}">
+                    {{ $category->label }}
+                </option>
+            @endforeach
+        </select>
+        @error('category_id')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
     <div class="col-12">
         <div class="form-group">
             <label for="content">Contenuto</label>
