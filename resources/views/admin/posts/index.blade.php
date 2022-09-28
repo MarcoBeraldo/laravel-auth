@@ -15,6 +15,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <td scope="col">Titolo</td>
+                    <td scope="col">Categoria</td>
                     <td scope="col">Slug</td>
                     <td scope="col">Stato</td>
                     <td scope="col">Creato il</td>
@@ -27,6 +28,13 @@
                     <tr>
                         <th scope="row">{{ $post->id }}</th>
                         <td>{{ $post->title }}</td>
+                        <td>
+                            @if ($post->category)
+                                {{ $post->category->label }}
+                            @else
+                                Nessuna
+                            @endif
+                        </td>
                         <td>{{ $post->slug }}</td>
                         <td>{{ $post->is_published ? 'Pubblicato' : 'Non Pubblicato' }}</td>
                         <td>{{ $post->created_at }}</td>
@@ -38,7 +46,8 @@
                             <a class="btn btn-sm btn-warning mx-2" href="{{ route('admin.posts.edit', $post) }}">
                                 <i class="fa-solid fa-pencil mr-2"></i> Modifica
                             </a>
-                            <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" class="delete-form">
+                            <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST"
+                                class="delete-form">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger" type="submit">
@@ -49,7 +58,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6">
+                        <td colspan="7">
                             <h3 class="text-center">Nessun Post</h3>
                         </td>
                     </tr>
