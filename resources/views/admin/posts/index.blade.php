@@ -15,6 +15,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <td scope="col">Titolo</td>
+                    <td scope="col">Autore</td>
                     <td scope="col">Categoria</td>
                     <td scope="col">Slug</td>
                     <td scope="col">Stato</td>
@@ -29,6 +30,13 @@
                         <th scope="row">{{ $post->id }}</th>
                         <td>{{ $post->title }}</td>
                         <td>
+                            @if ($post->user)
+                                {{ $post->user->name }}
+                            @else
+                                Anonimo
+                            @endif
+                        </td>
+                        <td>
                             @if ($post->category)
                                 {{ $post->category->label }}
                             @else
@@ -41,24 +49,27 @@
                         <td>{{ $post->updated_at }}</td>
                         <td class="d-flex">
                             <a class="btn btn-sm btn-primary mx-2" href="{{ route('admin.posts.show', $post) }}">
-                                <i class="fa-solid fa-eye mr-2"></i> Vedi
+                                <i class="fa-solid fa-eye"></i>
                             </a>
-                            <a class="btn btn-sm btn-warning mx-2" href="{{ route('admin.posts.edit', $post) }}">
-                                <i class="fa-solid fa-pencil mr-2"></i> Modifica
-                            </a>
-                            <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST"
-                                class="delete-form">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-sm btn-danger" type="submit">
-                                    <i class="fa-solid fa-trash mr-2"></i> Elimina
-                                </button>
-                            </form>
+                            @if ($post->user_id === Auth::id())
+                                <a class="btn btn-sm btn-warning mx-2" href="{{ route('admin.posts.edit', $post) }}">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+
+                                <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST"
+                                    class="delete-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger mx-2" type="submit">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7">
+                        <td colspan="8">
                             <h3 class="text-center">Nessun Post</h3>
                         </td>
                     </tr>

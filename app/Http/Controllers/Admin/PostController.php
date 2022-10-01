@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -68,6 +69,8 @@ class PostController extends Controller
 
         $post->slug = Str::slug($post->title, '-');
 
+        $post->user_id = Auth::id();
+
         $post->save();
 
         return redirect()->route('admin.posts.show', $post)
@@ -94,6 +97,12 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        //controllo che sia l'autore, se non lo è ridirigo sulla index
+        if($post->user_id !== Auth::id()){
+            return redirect()->route('admin.posts.index')
+            ->with('message', 'Non sei Autorizzato a modificare questo post')
+            ->with('type', 'warning');
+        }
         $categories = Category::select('id', 'label')->get();
         return view('admin.posts.edit', compact('post','categories'));
     }
