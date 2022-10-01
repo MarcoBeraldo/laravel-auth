@@ -26,6 +26,9 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
     // resource POST
     Route::resource('posts', 'PostController');
 
+    //resource category
+    Route::resource('categories', 'CategoryController');
+
 
     Route::get('/{any}', function(){
         abort('404');
