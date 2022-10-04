@@ -81,8 +81,25 @@
                 alt="post image preview" id="preview">
         </div>
     </div>
+
+    @if (count($tags))
+        <hr>
+        <fieldset class="col-12">
+            <h4>Tags</h4>
+
+            @foreach ($tags as $tag)
+                <div class="form-group form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="tag-{{ $tag->label }}" name="tags[]"
+                        value="{{ $tag->id }}" @if (in_array($tag->id, old('tags', $prev_tags ?? []))) checked @endif>
+                    <label for="tag-{{ $tag->label }}">{{ $tag->label }}</label>
+                </div>
+            @endforeach
+
+        </fieldset>
+    @endif
+
     <hr>
-    <footer class="d-flex justify-content-between">
+    <footer class="col-12 d-flex justify-content-between">
         <a class="btn btn-secondary" href="{{ route('admin.posts.index') }}">
             <i class="fa-solid fa-rotate-left mr-2"></i>Indietro
         </a>
