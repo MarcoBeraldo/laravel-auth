@@ -155,8 +155,8 @@ class PostController extends Controller
         
         $post->update($data);  
         
-        if(array_key_exists('tags', $data)) $post->tags()->detach();
-        else $post->tags()->sync($data['tags']);
+        if(array_key_exists('tags', $data)) $post->tags()->sync($data['tags']);
+        else $post->tags()->sync([]);
 
         return redirect()->route('admin.posts.show', $post)
         ->with('message', "Post modificato con successo")
